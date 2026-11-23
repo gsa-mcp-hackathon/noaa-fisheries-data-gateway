@@ -2,17 +2,21 @@
 
 ## Start here
 
-- [Slide deck](release/fisheries-deck.pptx) and
-  [evaluation document](release/fisheries-evaluation.docx).
-- [Six slides for recording](release/fisheries-video-deck.pptx) and
+- [Reference slides without a recording](release/repository/fisheries-deck.pptx) and
+  [evaluation document](release/repository/fisheries-evaluation.docx).
+- [Video slide template](release/repository/fisheries-video-deck.pptx) and
   [short recording steps](VIDEO.md).
 - [Current AI evaluation](../eval/results/hardened-agent-evaluation.json):
   45 MCP trials completed, with 80 tool calls and no reported tool errors.
-  A partial AI-assisted review found at least eight answers with unsupported
-  claims; the other 37 remain unverified, not passes.
+  The checked numerical outputs matched separate calculations from NOAA's
+  original files. In six reviewed answers, the AI linked lower catches to
+  reduced sampling, useful context that the catch totals cannot quantify.
+  The partial AI-assisted review did not fully review 37 other trials.
 
-The demo is scripted. The AI trials are separate. Neither establishes
-scientific approval. The sections below provide technical detail.
+The included command-line demo is scripted. The recording deck can be used
+with a separate live demo; the finished recording and edited decks are separate
+from the repository templates. The AI trials are separate from both examples.
+None establishes scientific approval. The sections below provide technical detail.
 
 ## Narrative
 
@@ -187,9 +191,10 @@ no-tool arm had the same dictionary but no underlying records and different
 access instructions. This measures access and result presence, not overall
 accuracy or an advantage over equally informed SQL or files.
 
-A partial AI-assisted review identified eight answers with unsupported causal
-or unit claims. The other 37 MCP trials remain unverified, not passes. The
-scientific review status is `UNVERIFIED`; there is no overall agent pass rate.
+A partial AI-assisted review flagged six answers that linked lower catches to
+reduced sampling. That is relevant context, but the catch totals alone cannot
+measure how much sampling explains. The other 37 MCP trials were not fully
+reviewed; this is not an overall accuracy score or a scientific verdict.
 The [sanitized manifest](../eval/results/hardened-agent-evaluation.json)
 records case IDs, excerpts, file hashes and limits. Raw exports are excluded
 because they may contain workspace identifiers and prompts.
@@ -281,12 +286,13 @@ uv run python submission\demo.py --receipt C:\path\to\new-demo-receipt.json
 uv run python submission\build_documents.py --deck-template C:\path\to\sample.pptx --evaluation-template C:\path\to\sample.docx --results eval\results\candidate-v7-hardened-scripted.json --receipt C:\path\to\new-demo-receipt.json --agent-evaluation eval\results\candidate-v7-agent-evaluation.json --output-dir C:\path\to\new-output-directory
 ```
 
-The generator creates the [full deck](release/fisheries-deck.pptx), the
-[six-slide recording deck](release/fisheries-video-deck.pptx), and the
-[evaluation document](release/fisheries-evaluation.docx). They summarize the
-current evaluation and its limits; the candidate-v7 agent run remains separate
-historical evidence. The schema contract and receipt/replay details are in
-this guide and the linked technical files.
+The generator creates the [reference deck](release/repository/fisheries-deck.pptx),
+the [six-slide recording template](release/repository/fisheries-video-deck.pptx),
+and the [evaluation document](release/repository/fisheries-evaluation.docx).
+The templates do not include the recorded demo. They summarize the current
+evaluation and its limits; the candidate-v7 agent run remains separate
+historical evidence. The schema contract and receipt/replay details are in this
+guide and the linked technical files.
 
 The earlier `candidate-v7-sme-feedback` receipt is preserved for historical
 container/server provenance. The current demo adds a clearer interpretation
@@ -307,9 +313,8 @@ scripted result JSON as historical evidence, including its scripted-only
 
 ## Outstanding before final submission
 
-- Confirm participant-only deadline/time, submission process, and repository
-  visibility. The participant reports a Monday extension; the
-  public page still lists November 20, so confirm the current cutoff.
+- Confirm the submission process and cutoff time. The public GSA page lists
+  November 23, without a specific time or submission link.
 - Confirm any required agency code-release/upload permission.
 - Disclose the limited one-excerpt consultation and that a full independent
   scientific review was not performed. Do not claim weight units, official
@@ -322,7 +327,7 @@ scripted result JSON as historical evidence, including its scripted-only
   dimension has been reviewed. Do not rewrite their saved status or answers.
 - Use [the maintainer guide](../CONTRIBUTING.md) for the code map, evaluation
   evidence lifecycle and clean-checkout test procedure.
-- Review the materials, add any required team details, and record the video.
+- Review the materials and add any required team details.
 - Use approved Databricks access and bounded model calls; do not deploy a public
   runtime. Plenty of available credits is not a reason to run an unbounded loop.
 

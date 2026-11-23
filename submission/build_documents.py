@@ -135,7 +135,6 @@ def make_deck(
     review = current_evaluation["answer_review"]
     issues = [issue for batch in review["batches"] for issue in batch["issues"]]
     causal_issues = sum(issue["category"] == "cause" for issue in issues)
-    unit_issues = sum(issue["category"] == "unit" for issue in issues)
     feedback = agent_evaluation.get("targeted_feedback")
     presentation = Presentation(template)
     presentation.core_properties.title = "Fisheries SI-Ready Gateway"
@@ -281,7 +280,7 @@ def make_deck(
         2.85,
         2.15,
         "THE QUESTION",
-        "Scientists need clear access to survey data.",
+        "How can scientists find the data they need?",
     )
     card(
         slide,
@@ -290,7 +289,7 @@ def make_deck(
         2.85,
         2.15,
         "THE RISK",
-        "An AI can mistake missing data for zero or catch for population.",
+        "AI can mistake missing data for zero or catch for fish population.",
         gold,
     )
     card(
@@ -300,7 +299,7 @@ def make_deck(
         2.85,
         2.15,
         "THE GOAL",
-        "Return useful data with its source and limits.",
+        "Show the numbers, their source and their limits.",
         pale,
     )
     text(
@@ -309,7 +308,7 @@ def make_deck(
         4.19,
         8.8,
         0.55,
-        "We aim to save researchers effort; time savings have not been measured.",
+        "We hope to save researchers time; we have not measured that yet.",
         16,
         muted,
     )
@@ -317,11 +316,11 @@ def make_deck(
     slide = presentation.slides[2]
     start(slide, 3, "Five tools for public fisheries data", "The solution")
     cards = [
-        ("01  FIND", "Search published species names."),
-        ("02  SUMMARIZE", "Get catch totals and missing-data details."),
-        ("03  COMPARE", "Compare two species over the same scope."),
-        ("04  COVERAGE", "Check survey coverage counts."),
-        ("05  CONTEXT", "Read selected NOAA report summaries."),
+        ("01  FIND", "Find the right fish."),
+        ("02  SUMMARIZE", "Show catch and missing data."),
+        ("03  COMPARE", "Compare two fish using the same filters."),
+        ("04  COVERAGE", "Show station records and survey groups."),
+        ("05  CONTEXT", "Show selected facts from NOAA reports."),
     ]
     for index, (heading, body) in enumerate(cards):
         if index < 3:
@@ -335,7 +334,8 @@ def make_deck(
         4.86,
         8.9,
         0.22,
-        "Report summaries are curated, not live retrieval or scientific approval.",
+        "Report facts are selected summaries, not a live search or "
+        "scientific approval.",
         11,
         muted,
     )
@@ -343,11 +343,11 @@ def make_deck(
     slide = presentation.slides[3]
     start(slide, 4, "How the prototype works", "Architecture")
     stages = [
-        ("PUBLIC ZIP", "NOAA\narchive"),
+        ("PUBLIC DATA", "NOAA\nsurvey files"),
         ("PREPARE", "Check source\nand select data"),
-        ("SNAPSHOT", "Read-only\nSQLite"),
-        ("MCP TOOLS", "Data, source\nand limits"),
-        ("CLIENT", "AI answer +\nhuman review"),
+        ("SNAPSHOT", "Local, read-only\ndatabase"),
+        ("MCP TOOLS", "Find data\nand context"),
+        ("AI CLIENT", "AI answer +\nhuman review"),
     ]
     for index, (heading, body) in enumerate(stages):
         x = 0.5 + index * 1.87
@@ -360,8 +360,8 @@ def make_deck(
         3.62,
         4.35,
         1.28,
-        "DEMONSTRATED",
-        "Public snapshot and read-only tools running locally.",
+        "TODAY",
+        "Use a public copy of the data on this computer.",
         pale,
     )
     card(
@@ -370,16 +370,16 @@ def make_deck(
         3.62,
         4.35,
         1.28,
-        "FUTURE WORK",
-        "Approved access, authorization and audit controls.",
+        "LATER",
+        "Approved access and security controls for internal data.",
         gold,
     )
 
     slide = presentation.slides[4]
     start(slide, 5, "A small public snapshot", "Technical decisions")
-    card(slide, 0.5, 1.5, 2.85, 1.55, "2021-2025", "Spring survey; two species.")
-    card(slide, 3.58, 1.5, 2.85, 1.55, "1,570", "Selected station records.")
-    card(slide, 6.66, 1.5, 2.85, 1.55, "758", "Selected catch records.")
+    card(slide, 0.5, 1.5, 2.85, 1.55, "2021-2025", "Spring surveys; cod and haddock.")
+    card(slide, 3.58, 1.5, 2.85, 1.55, "1,570", "Station records in our data.")
+    card(slide, 6.66, 1.5, 2.85, 1.55, "758", "Catch records in our data.")
     rectangle(slide, 0.5, 3.42, 9.0, 1.4, pale)
     text(
         slide,
@@ -387,7 +387,7 @@ def make_deck(
         3.58,
         8.5,
         0.42,
-        "Offline, read-only snapshot | non-root container | pinned dependencies",
+        "Public data | works offline | read-only tools",
         14,
         ink,
     )
@@ -397,8 +397,8 @@ def make_deck(
         4.03,
         8.5,
         0.56,
-        "CI checks dependencies, secrets and the container. HTTP is local by "
-        "default; an ingress setting does not authenticate users.",
+        "Automated checks look for security issues. "
+        "The server has no built-in sign-in.",
         12,
         ink,
     )
@@ -416,8 +416,8 @@ def make_deck(
         1.48,
         4.35,
         2.8,
-        "DOCUMENT",
-        "Record the source, filters, units, missing data and limits.",
+        "EXPLAIN THE DATA",
+        "Show where the data came from and what we know about it.",
         pale,
     )
     card(
@@ -426,8 +426,8 @@ def make_deck(
         1.48,
         4.35,
         2.8,
-        "REVIEW WITH EXPERTS",
-        "Scientists would check meaning, methods and conclusions.",
+        "ASK SCIENTISTS",
+        "Scientists would check what the numbers mean and how to use them.",
         gold,
     )
     text(
@@ -436,7 +436,8 @@ def make_deck(
         4.65,
         8.9,
         0.38,
-        "The example is provisional; scientific approval has not been obtained.",
+        "Scientists have not approved this example; the review process is not "
+        "yet in place.",
         15,
         muted,
     )
@@ -454,8 +455,8 @@ def make_deck(
         1.55,
         2.85,
         2.35,
-        "BOUNDED INPUT",
-        "Choose valid years, locations and distinct species.",
+        "SET LIMITS",
+        "Only ask for fish and years in this dataset.",
     )
     card(
         slide,
@@ -463,8 +464,8 @@ def make_deck(
         1.55,
         2.85,
         2.35,
-        "SAFE HANDOFF",
-        "Keep unknown and missing data visible.",
+        "MISSING DATA",
+        "Missing data stays unknown; it is not treated as zero.",
         pale,
     )
     card(
@@ -473,8 +474,8 @@ def make_deck(
         1.55,
         2.85,
         2.35,
-        "FUTURE REVIEW",
-        "Have experts review definitions and revisit them when sources change.",
+        "ASK SCIENTISTS",
+        "Review what the data means when sources change.",
     )
     text(
         slide,
@@ -482,7 +483,7 @@ def make_deck(
         4.3,
         8.9,
         0.55,
-        "The proposed expert-review process is not implemented.",
+        "This expert-review process is planned, not yet in place.",
         15,
         muted,
     )
@@ -491,7 +492,7 @@ def make_deck(
     start(
         slide,
         8,
-        "Demo: cod catch and survey context",
+        "Demo: a question with a trap",
         "Scripted public-data demo",
     )
     rectangle(slide, 0.5, 1.39, 5.42, 2.58, light)
@@ -501,7 +502,7 @@ def make_deck(
         1.56,
         5.0,
         0.27,
-        "SEARCH  >  RETURNED LABEL  >  SUMMARY",
+        "FIND COD  >  SHOW CATCH  >  ADD CONTEXT",
         12,
         teal,
         True,
@@ -510,7 +511,7 @@ def make_deck(
         (0.7, 0.7, "YEAR", "2022", "2023"),
         (1.55, 1.2, "WEIGHT*", "609.780", "416.396"),
         (3.0, 1.65, "STATION RECORDS", "378", "77"),
-        (4.8, 0.8, "STRATA", "82", "13"),
+        (4.8, 0.8, "GROUPS", "82", "13"),
     ]
     for x, width, heading, first, second in columns:
         text(slide, x, 1.99, width, 0.30, heading, 11, muted, True)
@@ -522,7 +523,7 @@ def make_deck(
         3.57,
         5.0,
         0.22,
-        "* Expanded catch weight, unspecified source units.",
+        "* Expanded weight; unit unknown. Groups are survey strata.",
         11,
         muted,
     )
@@ -533,14 +534,8 @@ def make_deck(
         3.35,
         2.58,
         "NOAA CONTEXT",
-        (
-            "NOAA: 70 of 377 planned trawl stations; distinct from 77 snapshot "
-            "station records.\n\n"
-            f"A receipt records {len(receipt['tool_calls'])} calls and results; "
-            "it can be replayed."
-            if receipt
-            else "Receipt not supplied to the document builder."
-        ),
+        "NOAA: 70 of 377 planned trawl stations.\n\n"
+        "That is not the same count as the 77 station records in our data.",
         pale,
     )
     text(
@@ -560,7 +555,7 @@ def make_deck(
         5.02,
         8.9,
         0.19,
-        "Calls are scripted, not selected by an AI. Scientific review is unverified.",
+        "This example is scripted; it is not an AI-selected answer.",
         10,
         muted,
     )
@@ -569,7 +564,7 @@ def make_deck(
     start(
         slide,
         9,
-        "How we tested the prototype",
+        "How did we check it?",
         "Evaluation",
     )
     card(
@@ -578,8 +573,8 @@ def make_deck(
         1.55,
         2.85,
         2.28,
-        "1  EDGE CASES",
-        "Check missing data, invalid requests and import errors.",
+        "1  CHECK THE EDGES",
+        "Try missing data, invalid requests and import errors.",
     )
     card(
         slide,
@@ -587,8 +582,8 @@ def make_deck(
         1.55,
         2.85,
         2.28,
-        "2  SCRIPTED TOOLS",
-        "Check results against independent NOAA CSV calculations.",
+        "2  CHECK DATA",
+        "Compare tool results with a separate calculation from NOAA files.",
         pale,
     )
     card(
@@ -597,8 +592,8 @@ def make_deck(
         1.55,
         2.85,
         2.28,
-        "3  AI TRIALS",
-        "Let the AI choose tools, then inspect its answers.",
+        "3  CHECK AI ANSWERS",
+        "Let the AI use the tools, then review its answers.",
     )
     text(
         slide,
@@ -606,27 +601,32 @@ def make_deck(
         4.18,
         8.9,
         0.66,
-        "Questions were repeated three times. The holdout was visible, not blind.",
+        "Questions were repeated three times and were visible, not secret.",
         15,
         muted,
     )
 
     slide = presentation.slides[9]
-    start(slide, 10, "Results: access is not accuracy", "Current evaluation")
+    start(
+        slide,
+        10,
+        "Getting data is only the first step",
+        "Current evaluation",
+    )
     metrics = [
         (
             f"{report['passed']}/{report['trial_count']}",
-            "scripted checks passed",
+            "scripted tool checks passed",
         ),
-        (str(mcp["completed_trials"]), "MCP AI trials completed"),
+        (str(mcp["completed_trials"]), "AI trials with tools"),
         (
             f"{mcp['tool_calls'] - mcp['tool_errors']}/{mcp['tool_calls']}",
-            "tool calls without error",
+            "tool calls had no errors",
         ),
         (
             f"{comparison['mcp_supplied_requested_result']}/"
             f"{comparison['trials_per_arm']}",
-            "requested results with MCP",
+            "requested result included",
         ),
     ]
     for index, (value, label) in enumerate(metrics):
@@ -640,8 +640,8 @@ def make_deck(
         3.35,
         8.8,
         0.38,
-        f"No-tool version: {comparison['no_tools_supplied_requested_result']}/"
-        f"{comparison['trials_per_arm']}; it lacked the underlying records.",
+        f"Without tools: {comparison['no_tools_supplied_requested_result']}/"
+        f"{comparison['trials_per_arm']}; that AI had no access to the records.",
         16,
         navy,
         True,
@@ -652,7 +652,7 @@ def make_deck(
         3.9,
         8.8,
         0.36,
-        "The comparison measures data access, not overall answer accuracy.",
+        "This checks data access, not whether every answer is correct.",
         15,
     )
     text(
@@ -661,8 +661,9 @@ def make_deck(
         4.42,
         8.8,
         0.5,
-        f"Eight questions, {comparison['repeats_per_case']} attempts each; "
-        "the questions were visible, not blind.",
+        f"{len(comparison['case_ids'])} questions, "
+        f"{comparison['repeats_per_case']} tries each; "
+        "the questions were visible, not secret.",
         15,
         muted,
     )
@@ -672,24 +673,28 @@ def make_deck(
         5.02,
         8.8,
         0.34,
-        "The 80 calls are from the 45 main MCP trials; smoke trials are separate.",
+        f"The {mcp['tool_calls']} calls came from the {mcp['completed_trials']} "
+        "main AI trials; extra test runs are separate.",
         11,
         muted,
     )
 
     slide = presentation.slides[10]
-    start(slide, 11, "The AI still needs a scientist", "Answer review")
+    start(slide, 11, "The AI spotted a useful clue", "Answer review")
     findings = [
         (
             f"{causal_issues} ANSWERS",
-            "Claimed a cause that the evidence did not establish.",
+            "Linked lower catches to reduced sampling; that context matters.",
         ),
-        (f"{unit_issues} ANSWERS", "Claimed unknown weight units were not pounds."),
+        (
+            "DATA CHECK",
+            "Checked tool results matched calculations from NOAA files.",
+        ),
         (
             f"{review['other_trials_unverified']} OTHER",
-            "Not fully reviewed; they are not counted as passes.",
+            "Not fully reviewed; no pass or fail claim.",
         ),
-        ("NEXT", "Have scientists review interpretations before research use."),
+        ("NEXT", "Ask scientists to check how strongly we explain the results."),
     ]
     for index, (label, body) in enumerate(findings):
         y = 1.4 + index * 0.77
@@ -702,7 +707,8 @@ def make_deck(
         4.64,
         8.9,
         0.46,
-        "Partial AI-assisted review; scientific approval remains UNVERIFIED.",
+        "The catch comparison cannot measure how much sampling explains. "
+        "Review was partial and AI-assisted.",
         13,
         muted,
     )
@@ -721,7 +727,7 @@ def make_deck(
         4.35,
         2.43,
         "THE MISSION",
-        "Make scientific information easier to use for healthy marine ecosystems.",
+        "Make fisheries data easier to use to support healthy oceans.",
         pale,
     )
     card(
@@ -731,7 +737,7 @@ def make_deck(
         4.35,
         2.43,
         "BEFORE INTERNAL USE",
-        "Review scientific meaning and establish approved access and controls.",
+        "Scientists review the meaning; approved access and security are needed.",
         gold,
     )
     text(
@@ -741,10 +747,10 @@ def make_deck(
         8.9,
         0.46,
         (
-            "One historical claim received limited subject-matter input. "
-            "No scientific approval is claimed."
+            "We received limited feedback on one earlier claim. "
+            "This is not scientific approval."
             if feedback is not None
-            else "No scientific approval or enterprise readiness is claimed."
+            else "This is not scientific approval or a system ready for internal use."
         ),
         15,
         navy,
@@ -762,38 +768,69 @@ def make_deck(
     )
 
     notes = [
-        "Fisheries scientists need clear access to survey data. Our prototype "
-        "helps an AI assistant look up public NOAA data without exposing a "
-        "private database.",
-        "We aim to reduce research-access effort; time savings are not measured.",
-        "Five read-only tools find species, summarize and compare catch, check "
-        "coverage, and provide selected NOAA report context. The data cover "
-        "cod and haddock from 2021 through 2025.",
-        "Private-data access and enterprise controls are future work only.",
-        "The snapshot contains cod and haddock from 2021 through 2025.",
-        "The field definitions and review process are provisional.",
-        "A scientist has not approved the example schema or its interpretations.",
-        "This slide shows a scripted demonstration using the real MCP server, "
-        "not a live AI answer. It looks up cod and shows catch and coverage "
-        "for 2022 and 2023. Weight units are unspecified. The survey changed "
-        "in 2023, so we cannot say from these totals alone why catch differed.",
-        "Scripted checks test the tools. Separate AI trials test model-selected calls.",
+        "Fisheries scientists study the ocean to support healthy fish populations "
+        "and sustainable fishing. Our prototype helps an AI assistant find "
+        "public NOAA survey data and understand what the numbers can tell us.",
+        "Finding the right data can take work, and an AI can sound confident "
+        "even when it gets the meaning wrong. We want to make the data easier "
+        "to find while keeping its source and limits visible.",
+        "These five read-only tools help the assistant find a fish, show and "
+        "compare catches, count survey records, and share selected facts from "
+        "NOAA reports. The data cover cod and haddock from 2021 through 2025.",
+        "The server uses a public copy of NOAA data on this computer. It does "
+        "not connect to our private database. Any internal use would need "
+        "approved access and security controls.",
+        "This is a small, fixed selection of public survey records for cod and "
+        "haddock. The tools cannot change the data. The server has no built-in "
+        "sign-in, so this is not a system ready for internal use.",
+        "We want the assistant to show where a number came from, what it "
+        "means, and what is missing. This is an early example: a scientist "
+        "still needs to check what the numbers mean and how they should be used.",
+        "The server limits requests to the fish and years in this public "
+        "dataset. It keeps missing values visible instead of turning them into "
+        "zeros. We plan to work with scientists on a review process; that "
+        "process is not in place yet.",
+        "This is a scripted example using the real server, not an AI-selected "
+        "answer. It compares cod catch in 2022 and 2023. The lower total does "
+        "not prove the fish population declined or explain why catch differed. "
+        "The weight unit is unknown, and NOAA's 70 trawl stations are not the "
+        "same count as our 77 station records. The survey groups counted here "
+        "are not a measure of geographic area.",
+        "We try difficult cases, compare tool results with separate calculations "
+        "from NOAA files, and review AI answers. The questions were repeated "
+        "three times and were visible, not a blind test.",
         (
-            f"In a separate AI test, {mcp['tool_calls'] - mcp['tool_errors']} of "
-            f"{mcp['tool_calls']} tool calls in {mcp['completed_trials']} main "
-            "trials returned without an error. Successful retrieval is not "
-            "the same as a trustworthy explanation."
+            f"Across {mcp['completed_trials']} main trials, all "
+            f"{mcp['tool_calls'] - mcp['tool_errors']} recorded tool calls "
+            "returned without an error. For "
+            f"{len(comparison['case_ids'])} questions repeated "
+            f"{comparison['repeats_per_case']} times, the AI with tools "
+            "included the requested result in "
+            f"{comparison['mcp_supplied_requested_result']} of "
+            f"{comparison['trials_per_arm']} answers; without access to the "
+            "records, the no-tool arm included it in "
+            f"{comparison['no_tools_supplied_requested_result']} of "
+            f"{comparison['trials_per_arm']}. This shows data access, not an "
+            "overall accuracy rate. The checked numerical tool results matched "
+            "separate calculations from original NOAA files. The questions "
+            "were visible, not a blind test."
         ),
         (
-            f"A partial AI-assisted review found {review['identified_issue_trials']} "
-            f"answers with unsupported claims. The other "
-            f"{review['other_trials_unverified']} are unverified, not passes. "
-            "Scientists still need to review the interpretations."
+            f"In {causal_issues} reviewed answers, the AI linked lower catches "
+            "to reduced sampling. That's useful context for interpreting the "
+            "result, but these catch totals cannot measure how much sampling "
+            "explains. "
+            "This partial review was AI-assisted, not a "
+            "scientific verdict; "
+            f"{review['other_trials_unverified']} other "
+            "trials were not fully reviewed. Fisheries scientists should help "
+            "check the interpretation."
         ),
         (
-            "This is a public-data prototype, not an official assessment. "
-            "It makes fisheries data easier to retrieve while keeping "
-            "scientists in the loop. No scientific approval is claimed."
+            "Our goal is to help scientists find useful data and see its "
+            "limits. This is not an official NOAA assessment or scientific "
+            "approval. Before internal use, we would need scientific review "
+            "and approved access and security controls."
         ),
     ]
     for slide, note in zip(presentation.slides, notes, strict=True):
@@ -820,6 +857,30 @@ def make_video_deck(source: Path, output: Path) -> None:
                     "PUBLIC NOAA SNAPSHOT  |  EVIDENCE-AWARE FISHERIES MCP"
                     f"    {number:02}"
                 )
+    demo = presentation.slides[2]
+    replacements = {
+        "SCRIPTED PUBLIC-DATA DEMO": "LIVE DEMO  |  PUBLIC DATA",
+        "FIND COD  >  SHOW CATCH  >  ADD CONTEXT": (
+            "REFERENCE VALUES FROM OUR PUBLIC DATA"
+        ),
+        "This example is scripted; it is not an AI-selected answer.": (
+            "Reference values shown; the live recording is a separate example."
+        ),
+    }
+    for shape in demo.shapes:
+        if shape.has_text_frame and shape.text in replacements:
+            shape.text_frame.paragraphs[0].runs[0].text = replacements.pop(shape.text)
+    if replacements:
+        raise ValueError("Video demo slide changed; review its labels.")
+    demo.notes_slide.notes_text_frame.text = (
+        "Play your live demo recording here. We ask the assistant to find cod "
+        "and compare catch in 2022 and 2023. This question has a trap: a lower "
+        "catch does not necessarily mean fewer fish in the ocean. NOAA's 2023 "
+        "survey was shortened. That is relevant context, but these catch totals "
+        "alone cannot show how much survey changes explain the difference. "
+        "We check the tool calls, numbers, sources and limitations. This is one "
+        "live example, separate from the evaluation."
+    )
     presentation.save(output)
 
 
@@ -988,10 +1049,9 @@ def make_document(
     review = current_evaluation["answer_review"]
     issues = [issue for batch in review["batches"] for issue in batch["issues"]]
     causal_issues = sum(issue["category"] == "cause" for issue in issues)
-    unit_issues = sum(issue["category"] == "unit" for issue in issues)
 
     document = Document(template)
-    document.core_properties.title = "Fisheries SI-Ready Gateway: Evaluation"
+    document.core_properties.title = "NOAA Fisheries Data Gateway: Evaluation"
     document.core_properties.author = ""
     document.core_properties.last_modified_by = ""
     document.core_properties.subject = ""
@@ -1007,7 +1067,7 @@ def make_document(
         if not element.tag.endswith("}sectPr"):
             document.element.body.remove(element)
 
-    document.add_heading("Fisheries SI-Ready Gateway: Evaluation", 0)
+    document.add_heading("NOAA Fisheries Data Gateway: Evaluation", 0)
     document.add_paragraph("GSA MCP and AI Agent Hackathon")
     document.add_paragraph(
         "A read-only prototype helps AI assistants retrieve public NOAA survey "
@@ -1058,11 +1118,15 @@ def make_document(
                 f"{comparison['trials_per_arm']}. This includes no-record results "
                 "and measures result presence, not overall accuracy or an MCP "
                 "advantage over equally informed SQL or files.",
-                f"Answer review: at least {review['identified_issue_trials']} answers "
-                f"had unsupported claims: {causal_issues} about causes and "
-                f"{unit_issues} about unknown weight units. The other "
-                f"{review['other_trials_unverified']} are not fully reviewed and "
-                "are not passes. Scientific review remains UNVERIFIED.",
+                f"Answer review: {causal_issues} answers linked lower catches to "
+                "reduced sampling. This is useful context, although the totals "
+                "cannot measure how much it explains; the review flagged how "
+                "strongly some explanations were stated. "
+                "The "
+                f"{review['other_trials_unverified']} trials were not fully "
+                "reviewed. This partial AI-assisted review is not an overall "
+                "accuracy score or scientific approval. Scientific review "
+                "remains UNVERIFIED.",
             ],
         ),
         (
@@ -1080,9 +1144,8 @@ def make_document(
         (
             "5. Lessons Learned & Recommendations",
             [
-                "A successful tool call does not guarantee a sound explanation. "
-                "Survey changes are context, not proof of what caused catch "
-                "differences. The source weight units are unspecified.",
+                "The AI's use of survey context helps readers interpret catches, "
+                "but the totals cannot measure the effect of survey changes.",
                 (
                     "Limited subject-matter feedback concerned one historical "
                     "excerpt, not the full evaluation. No scientific approval "

@@ -179,9 +179,11 @@ the model-selected agent. The historical 45-trial agent evidence used
 FastMCP 2.14.7 and does not evaluate the upgraded runtime. A separate
 [current-runtime agent run](results/hardened-agent-evaluation.json) has since
 completed 45 MCP trials, with 80 recorded calls and no reported tool errors.
-Its partial AI-assisted answer review identified eight unsupported causal or
-unit claims; the remaining 37 trials are unverified, not passes. Scientific
-review remains `UNVERIFIED`.
+In six partially reviewed answers, the AI linked lower catches to reduced
+sampling, relevant context that the catch totals alone cannot quantify. The
+other 37 trials were not fully reviewed. This is not an overall accuracy
+score; scientific review remains `UNVERIFIED`. The manifest preserves the
+original review findings.
 
 Score each trial on tool/argument correctness, numerical correctness,
 provenance, required caveats, and appropriate refusal/clarification. The

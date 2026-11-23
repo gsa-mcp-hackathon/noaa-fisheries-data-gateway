@@ -7,34 +7,41 @@ private database.
 The fixed snapshot covers Atlantic cod and haddock in spring 2021-2025. It is
 not a live feed or an official stock assessment.
 
-## Quick start
+## Try the demo first
 
-Install [uv](https://docs.astral.sh/uv/), then from the repository root:
+Install [uv](https://docs.astral.sh/uv/) if needed. From the repository root,
+install the project dependencies:
 
-```powershell
+```text
 uv sync --locked --group dev
-uv run fisheries-mcp
 ```
 
-The included `data\spring.sqlite` is a public-only snapshot. To rebuild it from
-the checksum-pinned NOAA archive:
+Run the scripted demo:
 
-```powershell
-uv run fisheries-prepare --download
-```
-
-The server uses stdio; it is not a chat interface. To connect an MCP client,
-see [QUICKSTART.md](QUICKSTART.md). Queries run offline and read-only.
-
-For a reproducible demonstration without a model:
+**Windows PowerShell**
 
 ```powershell
 uv run python submission\demo.py
 ```
 
-This script calls the real MCP server. Its calls are scripted, not selected by
-an AI. With an existing Windows virtual environment, you can instead run
-`.\.venv\Scripts\python.exe submission\demo.py`.
+**macOS or Linux**
+
+```bash
+uv run python submission/demo.py
+```
+
+This calls the real MCP server using public data. The calls are scripted, not
+selected by an AI; it needs no model, Oracle access, API key, or network access.
+
+## Connect an MCP client
+
+The server uses MCP over stdio; it is not a chat interface. Follow
+[QUICKSTART.md](QUICKSTART.md) to connect a compatible MCP client. The client
+starts the server with `uv run fisheries-mcp`. Queries run offline and are
+read-only.
+
+The included `data\spring.sqlite` is a public-only snapshot. To rebuild it
+from the checksum-pinned NOAA archive, run `uv run fisheries-prepare --download`.
 
 ## What makes it useful
 
@@ -72,21 +79,25 @@ arbitrary SQL.
 - **Data access:** For eight questions tried three times each, the AI supplied
   the requested result in 24 of 24 MCP trials and 0 of 24 no-tool trials. The
   no-tool version did not have the underlying records.
-- **Answer review:** A partial AI-assisted review found at least eight answers
-  with unsupported claims. The other 37 are unverified, not passes. Scientific
-  review remains **UNVERIFIED**.
+- **Answer review:** In six reviewed answers, the AI linked lower catches to
+  reduced sampling—useful context, though the catch totals cannot tell how much
+  that explains. The review was partial and AI-assisted; 37 trials were not
+  fully reviewed. Overall accuracy and scientific approval remain
+  **UNVERIFIED**.
 
 The comparison tests data access, not an MCP advantage over equally informed SQL
 or files. It is not an overall accuracy score.
 
 ## Submission materials
 
-- [Slide deck](submission/release/fisheries-deck.pptx)
-- [Evaluation document](submission/release/fisheries-evaluation.docx)
-- [Six slides for recording](submission/release/fisheries-video-deck.pptx)
+- [Reference slides without a recording](submission/release/repository/fisheries-deck.pptx)
+- [Evaluation document](submission/release/repository/fisheries-evaluation.docx)
+- [Video slide template](submission/release/repository/fisheries-video-deck.pptx)
 - [Short video script](submission/VIDEO.md)
 - [Current evaluation details](eval/results/hardened-agent-evaluation.json)
 - [Technical evidence and rubric map](submission/README.md)
+
+The finished recording and edited decks are separate from these templates.
 
 The earlier agent results and their limitations are preserved separately in the
 [candidate-v7 manifest](eval/results/candidate-v7-agent-evaluation.json).

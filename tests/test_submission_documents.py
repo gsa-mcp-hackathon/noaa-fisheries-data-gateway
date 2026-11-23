@@ -158,9 +158,9 @@ def test_generated_deliverables_preserve_discrepancies(tmp_path: Path) -> None:
     expected_titles = (
         "SI-Ready Gateway",
         "Five tools for public fisheries data",
-        "Demo: cod catch and survey context",
-        "Results: access is not accuracy",
-        "The AI still needs a scientist",
+        "Demo: a question with a trap",
+        "Getting data is only the first step",
+        "The AI spotted a useful clue",
         "Useful access, with scientists in the loop",
     )
     for number, (slide, title) in enumerate(
@@ -215,28 +215,51 @@ def test_generated_deliverables_preserve_discrepancies(tmp_path: Path) -> None:
 
     for text in (deck_text, document_text):
         assert "SAMPLE CLAIM" not in text
-        assert "UNVERIFIED" in text
         assert "scientific approval" in text
         assert "p95" not in text
         assert "duration" not in text.lower()
         assert "latency" not in text.lower()
+    assert "UNVERIFIED" in document_text
+    assert "NOAA Fisheries Data Gateway: Evaluation" in document_text
     assert "Five tools for public fisheries data" in deck_text
     assert "36/36" in deck_text
     assert "80/80" in deck_text
     assert "24/24" in deck_text
-    assert "No-tool version: 0/24" in deck_text
-    assert "6 ANSWERS" in deck_text and "2 ANSWERS" in deck_text
+    assert "Without tools: 0/24" in deck_text
+    assert "6 ANSWERS" in deck_text and "DATA CHECK" in deck_text
     assert "37 OTHER" in deck_text
+    assert "that context matters" in deck_text
+    assert "cannot measure how much sampling explains" in deck_text
+    assert "Checked tool results matched calculations from NOAA files." in deck_text
+    assert "claims the evidence did not support" not in deck_text
     assert "70 of 377" in deck_text
     assert "609.780" in deck_text and "416.396" in deck_text
-    assert "Calls are scripted, not selected by an AI" in deck_text
-    assert "not overall answer accuracy" in deck_text
+    assert "This example is scripted; it is not an AI-selected answer." in deck_text
+    assert "not whether every answer is correct" in deck_text
     assert "Fisheries" in deck_text and "SI-Ready Gateway" in deck_text
+    assert "a scientist still needs to check" in (
+        saved_deck.slides[5].notes_slide.notes_text_frame.text
+    )
+    video_demo_text = "\n".join(
+        shape.text for shape in saved_video.slides[2].shapes if shape.has_text_frame
+    )
+    assert "LIVE DEMO" in video_demo_text
+    assert "REFERENCE VALUES FROM OUR PUBLIC DATA" in video_demo_text
+    assert "live recording is a separate example" in video_demo_text
+    assert "This example is scripted" not in video_demo_text
+    assert "separate from the evaluation" in (
+        saved_video.slides[2].notes_slide.notes_text_frame.text
+    )
+    review_script = saved_video.slides[4].notes_slide.notes_text_frame.text
+    assert "That's useful context" in review_script
+    assert "cannot measure how much sampling explains" in review_script
+    assert "not a scientific verdict" in review_script
     assert "45 main trials completed" in document_text
     assert "80/80" in document_text
     assert "24/24" in document_text and "0/24" in document_text
     assert "no underlying records" in document_text
-    assert "37 are not fully reviewed and are not passes" in document_text
+    assert "37 trials were not fully reviewed" in document_text
+    assert "This is useful context" in document_text
     assert "AI-assisted, not independent scientific review" in document_text
     assert "No scientific approval is claimed" in document_text
     assert "not a blind test" in document_text
@@ -268,11 +291,9 @@ def test_generated_deliverables_preserve_discrepancies(tmp_path: Path) -> None:
     )
     legacy_notes = legacy_deck.slides[-1].notes_slide.notes_text_frame.text
     legacy_doc_text = "\n".join(p.text for p in docx.Document(doc_path).paragraphs)
-    assert "One historical claim received limited subject-matter input" not in (
+    assert "We received limited feedback on one earlier claim" not in legacy_deck_text
+    assert "not scientific approval or a system ready for internal use" in (
         legacy_deck_text
-    )
-    assert (
-        "No scientific approval or enterprise readiness is claimed" in legacy_deck_text
     )
     assert "Limited feedback addressed" not in legacy_notes
     assert "Limited subject-matter feedback" not in legacy_doc_text
