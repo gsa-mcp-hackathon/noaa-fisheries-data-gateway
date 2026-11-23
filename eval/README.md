@@ -176,7 +176,12 @@ no expert scientific approval or matched before/after model comparison.
 checks against the independently calculated public-CSV reference using
 FastMCP 3.4.11. It exercised the hardened runtime with direct MCP calls, not
 the model-selected agent. The historical 45-trial agent evidence used
-FastMCP 2.14.7 and does not evaluate the upgraded runtime.
+FastMCP 2.14.7 and does not evaluate the upgraded runtime. A separate
+[current-runtime agent run](results/hardened-agent-evaluation.json) has since
+completed 45 MCP trials, with 80 recorded calls and no reported tool errors.
+Its partial AI-assisted answer review identified eight unsupported causal or
+unit claims; the remaining 37 trials are unverified, not passes. Scientific
+review remains `UNVERIFIED`.
 
 Score each trial on tool/argument correctness, numerical correctness,
 provenance, required caveats, and appropriate refusal/clarification. The
@@ -198,8 +203,11 @@ The notebook now offers a separate `no_tools` arm: the same model, questions,
 options and shared dictionary, but no tools or numerical-data access. This
 measures access plus tooling, **not** MCP against an equally informed interface.
 A comparison with direct SQL or file access would need a separate experiment;
-no generic SQL interface belongs in the submission tools. No new baseline
-result or comparative lift is claimed by preparing this option.
+no generic SQL interface belongs in the submission tools. The completed
+comparison supplied the requested snapshot result in 24/24 MCP trials and
+0/24 no-tool trials for eight questions repeated three times. This is result
+presence, not an overall accuracy score; the no-tool arm lacked the underlying
+records and had different access instructions.
 
 ### Answer assessment, separate from scientific approval
 
