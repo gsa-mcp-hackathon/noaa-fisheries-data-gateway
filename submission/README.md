@@ -2,7 +2,7 @@
 
 ## Start here
 
-- [Reference slides](release/repository/fisheries-deck.pptx) and
+- [Presentation slides](release/repository/fisheries-deck.pptx) and
   [evaluation document](release/repository/fisheries-evaluation.docx).
 - [Current AI evaluation](../eval/results/hardened-agent-evaluation.json):
   45 MCP trials completed, with 80 tool calls and no reported tool errors.
@@ -48,7 +48,7 @@ at revision `f39249f1768309e3ef8b31742390a4f3a656b5f3`.
 | --- | --- |
 | Dataset Access Server track; already-public government data | Read-only NOAA public spring-survey snapshot; no non-public data dependency |
 | Complete documented GitHub repository | Root README, typed server, importer, tests, evaluation sources and preserved results |
-| Deck: problem, solution, technical decisions, functionality demo | Reference presentation, including a public-data example and scientist-centered enterprise roadmap |
+| Deck: problem, solution, technical decisions, functionality demo | Presentation, including a public-data example and scientist-centered enterprise roadmap |
 | Evaluation: methodology, performance, security, lessons/recommendations | Current evaluation document and public evidence appendix |
 | Technical quality and own evaluation/reliability evidence | Independent CSV reference, real MCP calls, model answers and explicit failure analysis |
 | Innovation, mission alignment, presentation | Domain-aware research access with coverage, identity and uncertainty retained |
@@ -254,7 +254,7 @@ before publicly identifying or quoting a reviewer. See the manifest's
 | Targeted subject-matter input received | `targeted_feedback` in the [historical manifest](../eval/results/candidate-v7-agent-evaluation.json) | Review of the full answer, numerical validation or causal approval |
 | Current agent run and data-access comparison | [Current manifest](../eval/results/hardened-agent-evaluation.json), [review protocol](../eval/README.md#answer-assessment-separate-from-scientific-approval) | Overall answer accuracy, scientific approval, or an MCP advantage over an equally informed interface |
 | Scientific schema-review lifecycle proposed | [Provisional contract](schema-contract.md) | An implemented or expert-approved approval gate |
-| Mission and presentation | [Scripted demo](demo.py), [reference slides](release/repository/fisheries-deck.pptx), [evaluation](release/repository/fisheries-evaluation.docx) | Measured researcher time savings or agency endorsement |
+| Mission and presentation | [Scripted demo](demo.py), [presentation slides](release/repository/fisheries-deck.pptx), [evaluation](release/repository/fisheries-evaluation.docx) | Measured researcher time savings or agency endorsement |
 
 No official numerical grading weights or vendor-platform bonus were found.
 The optional Databricks experiment is not a substitute for correctness evidence.

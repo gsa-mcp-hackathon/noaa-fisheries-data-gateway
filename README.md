@@ -90,7 +90,7 @@ or files. It is not an overall accuracy score.
 
 ## Submission materials
 
-- [Reference slides](submission/release/repository/fisheries-deck.pptx)
+- [Presentation slides](submission/release/repository/fisheries-deck.pptx)
 - [Evaluation document](submission/release/repository/fisheries-evaluation.docx)
 - [Current evaluation details](eval/results/hardened-agent-evaluation.json)
 - [Technical evidence and rubric map](submission/README.md)
