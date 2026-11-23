@@ -2,10 +2,8 @@
 
 ## Start here
 
-- [Reference slides without a recording](release/repository/fisheries-deck.pptx) and
+- [Reference slides](release/repository/fisheries-deck.pptx) and
   [evaluation document](release/repository/fisheries-evaluation.docx).
-- [Video slide template](release/repository/fisheries-video-deck.pptx) and
-  [short recording steps](VIDEO.md).
 - [Current AI evaluation](../eval/results/hardened-agent-evaluation.json):
   45 MCP trials completed, with 80 tool calls and no reported tool errors.
   The checked numerical outputs matched separate calculations from NOAA's
@@ -13,10 +11,9 @@
   reduced sampling, useful context that the catch totals cannot quantify.
   The partial AI-assisted review did not fully review 37 other trials.
 
-The included command-line demo is scripted. The recording deck can be used
-with a separate live demo; the finished recording and edited decks are separate
-from the repository templates. The AI trials are separate from both examples.
-None establishes scientific approval. The sections below provide technical detail.
+The included command-line demo is scripted and separate from the AI trials.
+Neither establishes scientific approval. The sections below provide technical
+detail.
 
 ## Narrative
 
@@ -65,13 +62,6 @@ loop, MLflow traces and analyst-review dimensions. We do not claim to have run
 Phoenix or automated judging. The current no-tool baseline is a limited
 data-access comparison, not a comparison with an equally informed interface.
 
-The official templates were downloaded again for this candidate:
-
-- Deck: `https://www.gsa.gov/system/files/MCP-hackathon-sample-deck.pptx`;
-  SHA-256 `58c2c2356fd474c32c919a1ad7cff1183edf2619e2f7961397d1f9296af6e246`.
-- Evaluation document: `https://www.gsa.gov/system/files/MCP-hackathon-sample-evaluation-document.docx`;
-  SHA-256 `53104f7b8ee10f51f74977cde87b88e558aebd387b77f5ff2d91228dc9a8e62f`.
-
 ## Demo sequence
 
 Run `uv run python submission\demo.py` from the repository root. With an
@@ -95,17 +85,15 @@ real MCP server over stdio:
 
 The demo's central distinction is **observation versus explanation**. Lower
 catch and fewer station records are observed; NOAA's shortened-survey report
-provides context, not proof of what caused the catch difference. End with a
-specific handoff: which locations and sampling conditions are comparable,
-and what analysis would support that comparison? This is presenter-written
-guidance, not a newly observed agent answer or an expert-approved conclusion.
+provides context, not proof of what caused the catch difference. A scientist
+would need to assess which locations and sampling conditions are comparable
+and what analysis would support that comparison.
 
 The receipt contains the exact question, scripted mode, requests/results,
 public source identity, database/server hashes and interpretation limits. It
 contains public data only. It is not a security audit or scientific approval.
 This is a **scripted demonstration, not an agent-selected workflow**. The report
-card is manually curated and does not search the web. If presenting an actual
-model trace instead, use the historical run evidence and its limitations.
+card is manually curated and does not search the web.
 
 The original `candidate-v7` receipt is retained as historical evidence. It
 does not replay against the later hardened server because its source hashes
@@ -266,31 +254,10 @@ before publicly identifying or quoting a reviewer. See the manifest's
 | Targeted subject-matter input received | `targeted_feedback` in the [historical manifest](../eval/results/candidate-v7-agent-evaluation.json) | Review of the full answer, numerical validation or causal approval |
 | Current agent run and data-access comparison | [Current manifest](../eval/results/hardened-agent-evaluation.json), [review protocol](../eval/README.md#answer-assessment-separate-from-scientific-approval) | Overall answer accuracy, scientific approval, or an MCP advantage over an equally informed interface |
 | Scientific schema-review lifecycle proposed | [Provisional contract](schema-contract.md) | An implemented or expert-approved approval gate |
-| Mission and presentation | [Scripted demo](demo.py), current deck and evaluation listed below | Measured researcher time savings or agency endorsement |
+| Mission and presentation | [Scripted demo](demo.py), [reference slides](release/repository/fisheries-deck.pptx), [evaluation](release/repository/fisheries-evaluation.docx) | Measured researcher time savings or agency endorsement |
 
 No official numerical grading weights or vendor-platform bonus were found.
 The optional Databricks experiment is not a substitute for correctness evidence.
-
-## Generate the submission documents
-
-The generator adapts the official GSA sample templates, removes their example
-claims/images, and inserts this project's results. Download the templates from
-the [GSA event page](https://www.gsa.gov/super-intelligence/si-community-of-practice/events-and-training/mcp-server-and-si-agent-government-hackathon?gsaredirect=hackathon),
-then run:
-
-```powershell
-uv sync --locked --group dev --extra presentation
-uv run python submission\demo.py --receipt C:\path\to\new-demo-receipt.json
-uv run python submission\build_documents.py --deck-template C:\path\to\sample.pptx --evaluation-template C:\path\to\sample.docx --results eval\results\candidate-v7-hardened-scripted.json --receipt C:\path\to\new-demo-receipt.json --agent-evaluation eval\results\candidate-v7-agent-evaluation.json --output-dir C:\path\to\new-output-directory
-```
-
-The generator creates the [reference deck](release/repository/fisheries-deck.pptx),
-the [six-slide recording template](release/repository/fisheries-video-deck.pptx),
-and the [evaluation document](release/repository/fisheries-evaluation.docx).
-The templates do not include the recorded demo. They summarize the current
-evaluation and its limits; the candidate-v7 agent run remains separate
-historical evidence. The schema contract and receipt/replay details are in this
-guide and the linked technical files.
 
 The earlier `candidate-v7-sme-feedback` receipt is preserved for historical
 container/server provenance. The current demo adds a clearer interpretation

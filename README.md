@@ -90,14 +90,10 @@ or files. It is not an overall accuracy score.
 
 ## Submission materials
 
-- [Reference slides without a recording](submission/release/repository/fisheries-deck.pptx)
+- [Reference slides](submission/release/repository/fisheries-deck.pptx)
 - [Evaluation document](submission/release/repository/fisheries-evaluation.docx)
-- [Video slide template](submission/release/repository/fisheries-video-deck.pptx)
-- [Short video script](submission/VIDEO.md)
 - [Current evaluation details](eval/results/hardened-agent-evaluation.json)
 - [Technical evidence and rubric map](submission/README.md)
-
-The finished recording and edited decks are separate from these templates.
 
 The earlier agent results and their limitations are preserved separately in the
 [candidate-v7 manifest](eval/results/candidate-v7-agent-evaluation.json).

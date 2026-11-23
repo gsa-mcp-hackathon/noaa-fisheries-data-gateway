@@ -838,52 +838,6 @@ def make_deck(
     presentation.save(output)
 
 
-def make_video_deck(source: Path, output: Path) -> None:
-    presentation = Presentation(source)
-    if len(presentation.slides) != 12:
-        raise ValueError("The full deck must contain 12 slides.")
-    keep = {0, 2, 7, 9, 10, 11}
-    # python-pptx has no public slide-deletion API.
-    for index in reversed(range(len(presentation.slides))):
-        if index not in keep:
-            slide_id = presentation.slides._sldIdLst[index]
-            presentation.slides._sldIdLst.remove(slide_id)
-            presentation.part.drop_rel(slide_id.rId)
-    for number, slide in enumerate(presentation.slides, start=1):
-        for shape in slide.shapes:
-            if shape.has_text_frame and shape.text.startswith("PUBLIC NOAA SNAPSHOT"):
-                paragraph = shape.text_frame.paragraphs[0]
-                paragraph.runs[0].text = (
-                    "PUBLIC NOAA SNAPSHOT  |  EVIDENCE-AWARE FISHERIES MCP"
-                    f"    {number:02}"
-                )
-    demo = presentation.slides[2]
-    replacements = {
-        "SCRIPTED PUBLIC-DATA DEMO": "LIVE DEMO  |  PUBLIC DATA",
-        "FIND COD  >  SHOW CATCH  >  ADD CONTEXT": (
-            "REFERENCE VALUES FROM OUR PUBLIC DATA"
-        ),
-        "This example is scripted; it is not an AI-selected answer.": (
-            "Reference values shown; the live recording is a separate example."
-        ),
-    }
-    for shape in demo.shapes:
-        if shape.has_text_frame and shape.text in replacements:
-            shape.text_frame.paragraphs[0].runs[0].text = replacements.pop(shape.text)
-    if replacements:
-        raise ValueError("Video demo slide changed; review its labels.")
-    demo.notes_slide.notes_text_frame.text = (
-        "Play your live demo recording here. We ask the assistant to find cod "
-        "and compare catch in 2022 and 2023. This question has a trap: a lower "
-        "catch does not necessarily mean fewer fish in the ocean. NOAA's 2023 "
-        "survey was shortened. That is relevant context, but these catch totals "
-        "alone cannot show how much survey changes explain the difference. "
-        "We check the tool calls, numbers, sources and limitations. This is one "
-        "live example, separate from the evaluation."
-    )
-    presentation.save(output)
-
-
 def add_evidence_appendix(document, path: Path) -> None:
     lines = path.read_text(encoding="utf-8").splitlines()
     paragraph = []
@@ -1209,10 +1163,6 @@ def main():
         agent_evaluation,
         current_evaluation,
     )
-    make_video_deck(
-        args.output_dir / "fisheries-deck.pptx",
-        args.output_dir / "fisheries-video-deck.pptx",
-    )
     make_document(
         args.evaluation_template,
         args.output_dir / "fisheries-evaluation.docx",
@@ -1220,7 +1170,7 @@ def main():
         agent_evaluation,
         current_evaluation,
     )
-    print("Generated the full deck, video deck and evaluation document.")
+    print("Generated the reference deck and evaluation document.")
 
 
 if __name__ == "__main__":

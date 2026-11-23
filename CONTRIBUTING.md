@@ -35,7 +35,7 @@ stdio integration tests for MCP-visible behavior.
 | Change source fields or import behavior | `prepare.py` and `data/README.md` | Synthetic importer fixtures, pinned archive identity and atomic failure behavior |
 | Add a benchmark question | `eval/questions.json` and `eval/run.py` references | Stable answer, explicit rubric, development vs. confirmation classification |
 | Review model-selected trials | `eval/review_answers.py` and `eval/README.md` | Preserve hash-bound answers/configuration; distinguish analyst judgments from scientific approval; never rewrite historical results |
-| Change submission documents | `submission/build_documents.py` and source evaluation data | Regenerate from the documented templates and inspect rendered output |
+| Change submission documents | `submission/build_documents.py` and source evaluation data | Inspect the generated output and its evidence |
 
 ## Scientific and data invariants
 

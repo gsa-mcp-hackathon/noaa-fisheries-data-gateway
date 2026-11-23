@@ -117,7 +117,6 @@ def test_generated_deliverables_preserve_discrepancies(tmp_path: Path) -> None:
         load_current_evaluation,
         make_deck,
         make_document,
-        make_video_deck,
     )
 
     root = Path(__file__).resolve().parents[1]
@@ -138,7 +137,6 @@ def test_generated_deliverables_preserve_discrepancies(tmp_path: Path) -> None:
     document.save(doc_template)
 
     deck_path = tmp_path / "deck.pptx"
-    video_deck_path = tmp_path / "video-deck.pptx"
     doc_path = tmp_path / "evaluation.docx"
     current_evaluation = load_current_evaluation()
     receipt = {
@@ -150,52 +148,8 @@ def test_generated_deliverables_preserve_discrepancies(tmp_path: Path) -> None:
     }
     agent_evaluation = load_agent_evaluation()
     make_deck(deck_template, deck_path, report, receipt, agent_evaluation)
-    make_video_deck(deck_path, video_deck_path)
     make_document(doc_template, doc_path, report, agent_evaluation)
     saved_deck = pptx.Presentation(deck_path)
-    saved_video = pptx.Presentation(video_deck_path)
-    assert len(saved_video.slides) == 6
-    expected_titles = (
-        "SI-Ready Gateway",
-        "Five tools for public fisheries data",
-        "Demo: a question with a trap",
-        "Getting data is only the first step",
-        "The AI spotted a useful clue",
-        "Useful access, with scientists in the loop",
-    )
-    for number, (slide, title) in enumerate(
-        zip(saved_video.slides, expected_titles, strict=True), start=1
-    ):
-        assert any(
-            title in shape.text for shape in slide.shapes if shape.has_text_frame
-        )
-        if number > 1:
-            footer = next(
-                shape.text
-                for shape in slide.shapes
-                if shape.has_text_frame
-                and shape.text.startswith("PUBLIC NOAA SNAPSHOT")
-            )
-            assert footer.endswith(f"{number:02}")
-
-    script_lines = (
-        (root / "submission" / "VIDEO.md")
-        .read_text(encoding="utf-8")
-        .split("## Script\n", 1)[1]
-        .splitlines()
-    )
-    script = []
-    quote = []
-    for line in script_lines + [""]:
-        if line.startswith("> "):
-            quote.append(line[2:])
-        elif quote:
-            script.append(" ".join(quote))
-            quote = []
-    assert script == [
-        " ".join(slide.notes_slide.notes_text_frame.text.split())
-        for slide in saved_video.slides
-    ]
     deck_text = "\n".join(
         shape.text
         for slide in saved_deck.slides
@@ -240,17 +194,7 @@ def test_generated_deliverables_preserve_discrepancies(tmp_path: Path) -> None:
     assert "a scientist still needs to check" in (
         saved_deck.slides[5].notes_slide.notes_text_frame.text
     )
-    video_demo_text = "\n".join(
-        shape.text for shape in saved_video.slides[2].shapes if shape.has_text_frame
-    )
-    assert "LIVE DEMO" in video_demo_text
-    assert "REFERENCE VALUES FROM OUR PUBLIC DATA" in video_demo_text
-    assert "live recording is a separate example" in video_demo_text
-    assert "This example is scripted" not in video_demo_text
-    assert "separate from the evaluation" in (
-        saved_video.slides[2].notes_slide.notes_text_frame.text
-    )
-    review_script = saved_video.slides[4].notes_slide.notes_text_frame.text
+    review_script = saved_deck.slides[10].notes_slide.notes_text_frame.text
     assert "That's useful context" in review_script
     assert "cannot measure how much sampling explains" in review_script
     assert "not a scientific verdict" in review_script
