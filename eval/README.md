@@ -54,8 +54,8 @@ limitations. Replay is deterministic for the same snapshot and code and fails
 on a source, server or result mismatch:
 
 ```powershell
-uv run python submission\demo.py --receipt submission\candidate-v7\demo-receipt.json
-uv run python submission\demo.py --replay submission\candidate-v7\demo-receipt.json
+uv run python submission\demo.py --receipt C:\path\to\new-demo-receipt.json
+uv run python submission\demo.py --replay submission\release\demo-receipt.json
 ```
 
 The receipt is not a model trace, scientific review, or security audit. It

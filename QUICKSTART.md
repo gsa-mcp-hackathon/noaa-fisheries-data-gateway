@@ -41,13 +41,13 @@ as well as the exact common or scientific name.
 To see a scripted search-to-summary-to-context workflow without a model, run:
 
 ```powershell
-uv run python submission\demo.py --receipt submission\candidate-v7\demo-receipt.json
-uv run python submission\demo.py --replay submission\candidate-v7\demo-receipt.json
+uv run python submission\demo.py --receipt C:\path\to\new-demo-receipt.json
+uv run python submission\demo.py --replay submission\release\demo-receipt.json
 ```
 
 It invokes the real MCP server, but the calls are chosen by the script rather
 than by an AI agent. With an already-installed Windows virtual environment,
-`.\.venv\Scripts\python.exe submission\demo.py --receipt submission\candidate-v7\demo-receipt.json`
+`.\.venv\Scripts\python.exe submission\demo.py --receipt C:\path\to\new-demo-receipt.json`
 also works if `uv` is not on PATH. The receipt contains public requests and
 results plus source/database/server hashes. Replay fails if the data, code or
 tool outputs differ; it is not scientific approval or a security audit.

@@ -50,8 +50,8 @@ at revision `f39249f1768309e3ef8b31742390a4f3a656b5f3`.
 | Requirement | This submission |
 | --- | --- |
 | Dataset Access Server track; already-public government data | Read-only NOAA public spring-survey snapshot; no non-public data dependency |
-| Complete documented GitHub repository | Root README, typed server, importer, tests, evaluation sources and preserved results; publication remains a release gate |
-| Deck: problem, solution, technical decisions, functionality demo | Candidate-v7 presentation, including a public-data receipt and scientist-centered enterprise roadmap |
+| Complete documented GitHub repository | Root README, typed server, importer, tests, evaluation sources and preserved results |
+| Deck: problem, solution, technical decisions, functionality demo | Reference presentation, including a public-data example and scientist-centered enterprise roadmap |
 | Evaluation: methodology, performance, security, lessons/recommendations | Current evaluation document and public evidence appendix |
 | Technical quality and own evaluation/reliability evidence | Independent CSV reference, real MCP calls, model answers and explicit failure analysis |
 | Innovation, mission alignment, presentation | Domain-aware research access with coverage, identity and uncertainty retained |
@@ -130,10 +130,8 @@ The container uses pinned image digests, the dependency lock, a non-root
 runtime user, and read-only snapshot permissions; CI is configured for a
 dependency audit, secret scan, dependency review, and read-only container smoke
 test. The container was built and checked locally; see
-[`container-verification.json`](container-verification.json). The GitHub
-workflow passed on the fork's merged commit; it has not verified this later
-documentation revision or the destination repository. These are prototype
-safeguards, not enterprise authorization or a security certification.
+[`container-verification.json`](container-verification.json). These are
+prototype safeguards, not enterprise authorization or a security certification.
 
 The historical candidate-v7 agent run used FastMCP 2.14.7. The current locked
 runtime uses FastMCP 3.4.11 after the dependency audit; those historical trials
@@ -263,7 +261,7 @@ before publicly identifying or quoting a reviewer. See the manifest's
 | Historical agent: 45 completed trials, 82/84 successful calls | [Run manifest and per-case findings](../eval/results/candidate-v7-agent-evaluation.json) | Overall answer accuracy; this used FastMCP 2.14.7, not the current 3.4.11 runtime |
 | Public evidence is replayable | [Current receipt](release/demo-receipt.json), [replay implementation](receipt.py) | A live model run, new source download or expert review |
 | Local container operated with runtime restrictions | [Container record and input hashes](container-verification.json), [MCP smoke verifier](container_mcp_smoke.py) | A passing GitHub Actions run or production authorization |
-| CI on the fork | [Successful CI run](https://github.com/jwyman100/mcp-hackathon-template/actions/runs/45185569653), [workflow](../.github/workflows/ci.yml) | This later documentation revision or a destination-repository run |
+| Earlier CI run | [Successful CI run](https://github.com/jwyman100/mcp-hackathon-template/actions/runs/45185569653), [workflow](../.github/workflows/ci.yml) | Later revisions or runs in another repository |
 | Interpretation problems remain visible | [Public appendix](public-evaluation-appendix.md), [candidate-v7 findings](../eval/results/candidate-v7-agent-evaluation.json) | That caveats prevented every unsupported answer |
 | Targeted subject-matter input received | `targeted_feedback` in the [historical manifest](../eval/results/candidate-v7-agent-evaluation.json) | Review of the full answer, numerical validation or causal approval |
 | Current agent run and data-access comparison | [Current manifest](../eval/results/hardened-agent-evaluation.json), [review protocol](../eval/README.md#answer-assessment-separate-from-scientific-approval) | Overall answer accuracy, scientific approval, or an MCP advantage over an equally informed interface |
@@ -302,35 +300,3 @@ Use the `release` receipt to replay the current code.
 The configured CI container smoke test connects to `/mcp`, discovers tools,
 resolves cod and checks the 2022-2023 public catch results in addition to
 checking `/health`. Those container checks were also performed locally.
-The fork's CI passed on the merged commit; this later documentation revision
-and any destination-repository CI run have not yet been verified.
-Earlier local binary
-drafts, including candidate-v5, and Office lock files are ignored, not deleted;
-do not include them in the release. They contain superseded claims or scope
-language. Preserve archived
-scripted result JSON as historical evidence, including its scripted-only
-`agent_evaluation` status.
-
-## Outstanding before final submission
-
-- Confirm the submission process and cutoff time. The public GSA page lists
-  November 23, without a specific time or submission link.
-- Confirm any required agency code-release/upload permission.
-- Disclose the limited one-excerpt consultation and that a full independent
-  scientific review was not performed. Do not claim weight units, official
-  abundance or representative-haul equivalence.
-- Keep all candidate-v7 scientific review statuses `UNVERIFIED` until a
-  fisheries expert reviews the relevant claims.
-- Keep SSO, per-tool authorization, guardrails and auditability clearly labeled
-  as future enterprise work; do not imply identity alone authorizes data access.
-- Keep all 33 historical trial records unverified until each applicable rubric
-  dimension has been reviewed. Do not rewrite their saved status or answers.
-- Use [the maintainer guide](../CONTRIBUTING.md) for the code map, evaluation
-  evidence lifecycle and clean-checkout test procedure.
-- Review the materials and add any required team details.
-- Use approved Databricks access and bounded model calls; do not deploy a public
-  runtime. Plenty of available credits is not a reason to run an unbounded loop.
-
-The project has been pushed to the fork, but the participant controls the
-destination push and final submission. No public runtime deployment is claimed.
-Internal-project improvement notes are stored outside this repository.
